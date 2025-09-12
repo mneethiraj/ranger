@@ -49,6 +49,11 @@ public class TestEmbeddedAuthorizer {
         runMultiAuthzTest("test_s3");
     }
 
+    @Test
+    public void testAuthzHive() throws Exception {
+        runAuthzTest("test_hive");
+    }
+
     private void runAuthzTest(String testName) throws Exception {
         String propertiesPath = "/" + testName + "/ranger-embedded-authz.properties";
         String testsPath      = "/" + testName + "/tests_authz.json";

@@ -20,6 +20,7 @@
 package org.apache.ranger.authz.embedded;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ranger.audit.provider.AuditProviderFactory;
 import org.apache.ranger.authz.api.RangerAuthorizer;
 import org.apache.ranger.authz.api.RangerAuthzException;
 import org.apache.ranger.authz.model.RangerAccessContext;
@@ -54,6 +55,8 @@ public class RangerEmbeddedAuthorizer extends RangerAuthorizer {
     }
 
     public void init() throws RangerAuthzException {
+        AuditProviderFactory.getInstance().init(config.getAuditProperties(), "ranger-authz");
+
         String[] initServices = config.getInitServices();
 
         for (String serviceName : initServices) {
@@ -74,24 +77,20 @@ public class RangerEmbeddedAuthorizer extends RangerAuthorizer {
 
     @Override
     public RangerAuthzResult authorize(RangerAuthzRequest request) throws RangerAuthzException {
-        LOG.debug("==> authorize(request={})", request);
-
         validateRequest(request);
 
         RangerAuthzPlugin plugin = getOrCreatePlugin(request.getContext().getServiceName(), request.getContext().getServiceType());
-        RangerAuthzResult result = plugin.authorize(request);
 
-        LOG.debug("<== authorize(request={}): result={}", request, result);
-
-        return result;
+        try (RangerAuthzAuditHandler auditHandler = new RangerAuthzAuditHandler(plugin.getPlugin())) {
+            return authorize(request, plugin, auditHandler);
+        }
     }
 
     @Override
     public RangerMultiAuthzResult authorize(RangerMultiAuthzRequest request) throws RangerAuthzException {
-        LOG.debug("==> authorize(request={})", request);
-
         validateRequest(request);
 
+        RangerAuthzPlugin      plugin = getOrCreatePlugin(request.getContext().getServiceName(), request.getContext().getServiceType());
         RangerMultiAuthzResult result = new RangerMultiAuthzResult(request.getRequestId());
 
         if (request.getAccesses() != null) {
@@ -101,19 +100,21 @@ public class RangerEmbeddedAuthorizer extends RangerAuthorizer {
 
             result.setAccesses(new ArrayList<>(request.getAccesses().size()));
 
-            for (RangerAccessInfo accessInfo : request.getAccesses()) {
-                RangerAuthzRequest authzRequest = new RangerAuthzRequest(null, request.getUser(), accessInfo, request.getContext());
-                RangerAuthzResult  authzResult  = authorize(authzRequest);
+            try (RangerAuthzAuditHandler auditHandler = new RangerAuthzAuditHandler(plugin.getPlugin())) {
+                for (RangerAccessInfo accessInfo : request.getAccesses()) {
+                    RangerAuthzRequest authzRequest = new RangerAuthzRequest(null, request.getUser(), accessInfo, request.getContext());
+                    RangerAuthzResult  authzResult  = authorize(authzRequest, plugin, auditHandler);
 
-                if (authzResult.getDecision() == AccessDecision.ALLOW) {
-                    allowedCount++;
-                } else if (authzResult.getDecision() == AccessDecision.DENY) {
-                    deniedCount++;
-                } else if (authzResult.getDecision() == AccessDecision.NOT_DETERMINED) {
-                    notDeterminedCount++;
+                    if (authzResult.getDecision() == AccessDecision.ALLOW) {
+                        allowedCount++;
+                    } else if (authzResult.getDecision() == AccessDecision.DENY) {
+                        deniedCount++;
+                    } else if (authzResult.getDecision() == AccessDecision.NOT_DETERMINED) {
+                        notDeterminedCount++;
+                    }
+
+                    result.getAccesses().add(authzResult);
                 }
-
-                result.getAccesses().add(authzResult);
             }
 
             if (allowedCount == request.getAccesses().size()) {
@@ -126,8 +127,6 @@ public class RangerEmbeddedAuthorizer extends RangerAuthorizer {
                 result.setDecision(AccessDecision.PARTIAL);
             }
         }
-
-        LOG.debug("<== authorize(request={}): result={}", request, result);
 
         return result;
     }
@@ -162,6 +161,10 @@ public class RangerEmbeddedAuthorizer extends RangerAuthorizer {
 
             context.setServiceType(serviceType);
         }
+    }
+
+    private RangerAuthzResult authorize(RangerAuthzRequest request, RangerAuthzPlugin plugin, RangerAuthzAuditHandler auditHandler) throws RangerAuthzException {
+        return plugin.authorize(request, auditHandler);
     }
 
     private RangerAuthzPlugin getOrCreatePlugin(String serviceName, String serviceType) throws RangerAuthzException {

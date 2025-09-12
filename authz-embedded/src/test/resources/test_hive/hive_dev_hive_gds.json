@@ -1,5 +1,5 @@
 {
-  "serviceName": "dev_s3", "gdsVersion": 19,
+  "serviceName": "dev_hive", "gdsVersion": 19,
   "datasets": [
     {
       "id": 1, "name": "ds1",
@@ -27,21 +27,27 @@
     }
   ],
   "dataShares": [
-    { "id": 1, "name": "s3-ds1", "defaultAccessTypes": [ "read" ] },
-    { "id": 2, "name": "s3-ds2", "defaultAccessTypes": [ "read" ] }
+    { "id": 1, "name": "hive-ds1",     "defaultAccessTypes": [ "select" ] },
+    { "id": 2, "name": "hive-ds2",     "defaultAccessTypes": [ "select" ] },
+    { "id": 3, "name": "hive-some-ds", "defaultAccessTypes": [ "select" ] }
   ],
   "dshids": [
     { "dataShareId": 1, "datasetId": 1, "status": "ACTIVE" },
-    { "dataShareId": 2, "datasetId": 2, "status": "ACTIVE" }
+    { "dataShareId": 2, "datasetId": 2, "status": "ACTIVE" },
+    { "dataShareId": 3, "datasetId": 3, "status": "ACTIVE" }
   ],
   "resources": [
     {
-      "id": 1, "name": "mybucket/data/ds1", "dataShareId": 1,
-      "resource": { "bucket": { "values": [ "mybucket" ] }, "path": { "values": [ "data/ds1" ], "isRecursive": true } }
+      "id": 1, "name": "mydb.tbl_ds1", "dataShareId": 1,
+      "resource": { "database": { "values": [ "mydb" ] }, "table": { "values": [ "tbl_ds1" ], "isRecursive": true } }
     },
     {
-      "id": 2, "name": "mybucket/data/ds2", "dataShareId": 2,
-      "resource": { "bucket": { "values": [ "mybucket" ] }, "path": { "values": [ "data/ds2" ], "isRecursive": true } }
+      "id": 2, "name": "mydb.tbl_ds2", "dataShareId": 2,
+      "resource": { "database": { "values": [ "mydb" ] }, "table": { "values": [ "tbl_ds2" ], "isRecursive": true } }
+    },
+    {
+      "id": 3, "name": "mydb.tbl_some-ds", "dataShareId": 3,
+      "resource": { "database": { "values": [ "mydb" ] }, "table": { "values": [ "tbl_some-ds" ], "isRecursive": true } }
     }
   ],
   "gdsServiceDef": {

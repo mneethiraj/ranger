@@ -79,7 +79,7 @@ public class RangerAuthzPlugin {
         plugin.cleanup();
     }
 
-    public RangerAuthzResult authorize(RangerAuthzRequest request) throws RangerAuthzException {
+    public RangerAuthzResult authorize(RangerAuthzRequest request, RangerAuthzAuditHandler auditHandler) throws RangerAuthzException {
         RangerUserInfo          userInfo      = request.getUser();
         RangerAccessInfo        access        = request.getAccess();
         RangerAccessContext     context       = request.getContext();
@@ -105,7 +105,7 @@ public class RangerAuthzPlugin {
             accessRequest.setAccessType(permission);
             accessRequest.setContext(new HashMap<>(context.getAdditionalInfo()));
 
-            PermissionResult permResult = evaluate(accessRequest);
+            PermissionResult permResult = evaluate(accessRequest, auditHandler);
 
             if (CollectionUtils.isNotEmpty(access.getSubResources())) {
                 permResult.setSubResources(new HashMap<>(access.getSubResources().size()));
@@ -116,7 +116,7 @@ public class RangerAuthzPlugin {
                     accessRequest.setResource(subResource);
                     accessRequest.setContext(new HashMap<>(context.getAdditionalInfo())); // reset the context
 
-                    PermissionResult subResPermResult = evaluate(accessRequest);
+                    PermissionResult subResPermResult = evaluate(accessRequest, auditHandler);
 
                     updateResult(subResPermResult.getAccess(), permResult.getAccess());
 
@@ -146,6 +146,10 @@ public class RangerAuthzPlugin {
         }
 
         return ret;
+    }
+
+    RangerBasePlugin getPlugin() {
+        return plugin;
     }
 
     private RangerAccessResource getResource(String resource, Map<String, Object> attributes) throws RangerAuthzException {
@@ -234,12 +238,12 @@ public class RangerAuthzPlugin {
         return new PolicyInfo(result.getPolicyId(), result.getPolicyVersion());
     }
 
-    private PermissionResult evaluate(RangerAccessRequest request) {
-        RangerAccessResult result = plugin.isAccessAllowed(request);
+    private PermissionResult evaluate(RangerAccessRequest request, RangerAuthzAuditHandler auditHandler) {
+        RangerAccessResult result = plugin.isAccessAllowed(request, auditHandler);
         PermissionResult   ret    = toPermissionResult(result);
 
         if (plugin.getServiceDefHelper().isRowFilterSupported(request.getResource().getKeys())) {
-            RangerAccessResult rowFilterResult = plugin.evalRowFilterPolicies(request, null);
+            RangerAccessResult rowFilterResult = plugin.evalRowFilterPolicies(request, auditHandler);
 
             if (rowFilterResult != null && rowFilterResult.getIsAccessDetermined() && StringUtils.isNotBlank(rowFilterResult.getFilterExpr())) {
                 ret.setRowFilter(new RowFilterResult(rowFilterResult.getFilterExpr(), toPolicyInfo(rowFilterResult)));
@@ -247,7 +251,7 @@ public class RangerAuthzPlugin {
         }
 
         if (plugin.getServiceDefHelper().isDataMaskSupported(request.getResource().getKeys())) {
-            RangerAccessResult dataMaskResult = plugin.evalDataMaskPolicies(request, null);
+            RangerAccessResult dataMaskResult = plugin.evalDataMaskPolicies(request, auditHandler);
 
             if (dataMaskResult != null && dataMaskResult.getIsAccessDetermined() && StringUtils.isNotBlank(dataMaskResult.getMaskType())) {
                 ret.setDataMask(new DataMaskResult(dataMaskResult.getMaskType(), dataMaskResult.getMaskedValue(), toPolicyInfo(dataMaskResult)));
