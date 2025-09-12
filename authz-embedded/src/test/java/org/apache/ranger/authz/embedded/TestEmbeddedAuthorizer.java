@@ -24,25 +24,34 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.ranger.authz.model.RangerAuthzRequest;
 import org.apache.ranger.authz.model.RangerAuthzResult;
+import org.apache.ranger.authz.model.RangerMultiAuthzRequest;
+import org.apache.ranger.authz.model.RangerMultiAuthzResult;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestEmbeddedAuthorizer {
-    private static final TypeReference<List<TestData>> TYPE_LIST_TEST_DATA = new TypeReference<List<TestData>>() {};
+    private static final TypeReference<List<TestAuthzData>>      TYPE_LIST_TEST_AUTHZ_DATA       = new TypeReference<List<TestAuthzData>>() {};
+    private static final TypeReference<List<TestMultiAuthzData>> TYPE_LIST_TEST_MULTI_AUTHZ_DATA = new TypeReference<List<TestMultiAuthzData>>() {};
 
     @Test
-    public void testS3() throws Exception {
-        runTest("test_s3");
+    public void testAuthzS3() throws Exception {
+        runAuthzTest("test_s3");
     }
 
-    private void runTest(String testName) throws Exception {
+    @Test
+    public void testMultiAuthzS3() throws Exception {
+        runMultiAuthzTest("test_s3");
+    }
+
+    private void runAuthzTest(String testName) throws Exception {
         String propertiesPath = "/" + testName + "/ranger-embedded-authz.properties";
-        String testsPath      = "/" + testName + "/tests.json";
+        String testsPath      = "/" + testName + "/authz_tests.json";
 
         RangerEmbeddedAuthorizer authorizer = null;
 
@@ -53,7 +62,7 @@ public class TestEmbeddedAuthorizer {
 
             System.out.println("Authorizer initialized");
 
-            for (TestData test : loadTestData(testsPath)) {
+            for (TestAuthzData test : loadTestAuthzData(testsPath)) {
                 if (test.request == null || test.result == null) {
                     continue;
                 }
@@ -61,6 +70,37 @@ public class TestEmbeddedAuthorizer {
                 RangerAuthzRequest request = test.request;
                 RangerAuthzResult  expected = test.result;
                 RangerAuthzResult  result   = authorizer.authorize(request);
+
+                assertEquals(expected, result);
+            }
+        } finally {
+            if (authorizer != null) {
+                authorizer.close();
+            }
+        }
+    }
+
+    private void runMultiAuthzTest(String testName) throws Exception {
+        String propertiesPath = "/" + testName + "/ranger-embedded-authz.properties";
+        String testsPath      = "/" + testName + "/multi_authz_tests.json";
+
+        RangerEmbeddedAuthorizer authorizer = null;
+
+        try {
+            authorizer = new RangerEmbeddedAuthorizer(loadProperties(propertiesPath));
+
+            authorizer.init();
+
+            System.out.println("Authorizer initialized");
+
+            for (TestMultiAuthzData test : loadTestMultiAuthzData(testsPath)) {
+                if (test.request == null || test.result == null) {
+                    continue;
+                }
+
+                RangerMultiAuthzRequest request  = test.request;
+                RangerMultiAuthzResult  expected = test.result;
+                RangerMultiAuthzResult  result   = authorizer.authorize(request);
 
                 assertEquals(expected, result);
             }
@@ -81,16 +121,29 @@ public class TestEmbeddedAuthorizer {
         return properties;
     }
 
-    private List<TestData> loadTestData(String resourcePath) throws Exception {
+    private List<TestAuthzData> loadTestAuthzData(String resourcePath) throws Exception {
         ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         try (InputStream in = getClass().getResourceAsStream(resourcePath)) {
-            return mapper.readValue(in, TYPE_LIST_TEST_DATA);
+            return mapper.readValue(in, TYPE_LIST_TEST_AUTHZ_DATA);
         }
     }
 
-    private static class TestData {
+    private List<TestMultiAuthzData> loadTestMultiAuthzData(String resourcePath) throws Exception {
+        ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        InputStream in = getClass().getResourceAsStream(resourcePath);
+
+        return in != null ? mapper.readValue(in, TYPE_LIST_TEST_MULTI_AUTHZ_DATA) : Collections.emptyList();
+    }
+
+    private static class TestAuthzData {
         public RangerAuthzRequest request;
         public RangerAuthzResult  result;
+    }
+
+    private static class TestMultiAuthzData {
+        public RangerMultiAuthzRequest request;
+        public RangerMultiAuthzResult  result;
     }
 }

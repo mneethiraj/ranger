@@ -102,7 +102,7 @@ public class RangerEmbeddedAuthorizer extends RangerAuthorizer {
             result.setAccesses(new ArrayList<>(request.getAccesses().size()));
 
             for (RangerAccessInfo accessInfo : request.getAccesses()) {
-                RangerAuthzRequest authzRequest = new RangerAuthzRequest(request.getRequestId(), request.getUser(), accessInfo, request.getContext());
+                RangerAuthzRequest authzRequest = new RangerAuthzRequest(null, request.getUser(), accessInfo, request.getContext());
                 RangerAuthzResult  authzResult  = authorize(authzRequest);
 
                 if (authzResult.getDecision() == AccessDecision.ALLOW) {

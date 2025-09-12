@@ -280,25 +280,6 @@ public class RangerAuthzPlugin {
         return (Map<String, Object>) ret;
     }
 
-        /*
-    private RangerAccessRequest toAccessRequest(RangerAuthzRequest request) throws RangerAuthzException {
-        RangerAccessInfo accessInfo = request.getAccess();
-        RangerAccessResource resource = new RangerAccessResourceImpl( accessInfo.getResource(), accessInfo.getAttributes());
-
-        return new RangerAccessRequest(
-                accessInfo.getResource(),
-                request.getUser() != null ? request.getUser().getName() : null,
-                accessInfo.getAction(),
-                accessInfo.getServiceType(),
-                accessInfo.getServiceName(),
-                request.getUser() != null ? request.getUser().getGroups() : null,
-                accessInfo.,
-                accessInfo.getSubResources(),
-                accessInfo.getContext());
-        return null;
-    }
-         */
-
     private void updateResourceTemplates() {
         RangerServiceDef serviceDef = plugin.getServiceDef();
 
