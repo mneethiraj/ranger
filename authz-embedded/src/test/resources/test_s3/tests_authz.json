@@ -1,16 +1,16 @@
 [
   {
-    "comment": "tests for path /data/path1/file.orc"
+    "comment": "tests for path mybucket/data/path1/file.orc"
   },
   {
     "request": {
-      "requestId": "path1-r-user read /data/path1/file.orc",
+      "requestId": "path1-r-user read mybucket/data/path1/file.orc",
       "user":      { "name": "path1-r-user" },
       "access":    { "resource": "path:mybucket/data/path1/file.orc", "action": "read", "permissions": [ "read" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "path1-r-user read /data/path1/file.orc",
+      "requestId": "path1-r-user read mybucket/data/path1/file.orc",
       "decision":  "ALLOW",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "ALLOW", "policy": { "id": 1, "version": 1 } } }
@@ -19,13 +19,13 @@
   },
   {
     "request": {
-      "requestId": "path1-r-user write /data/path1/file.orc",
+      "requestId": "path1-r-user write mybucket/data/path1/file.orc",
       "user":      { "name": "path1-r-user" },
       "access":    { "resource": "path:mybucket/data/path1/file.orc", "action": "write", "permissions": [ "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "path1-r-user write /data/path1/file.orc",
+      "requestId": "path1-r-user write mybucket/data/path1/file.orc",
       "decision":  "DENY",
       "permissions": {
         "write": { "permission": "write", "access": { "decision": "DENY", "policy": { "id":  -1 } } }
@@ -34,13 +34,13 @@
   },
   {
     "request": {
-      "requestId": "path1-r-user read,write /data/path1/file.orc",
+      "requestId": "path1-r-user read,write mybucket/data/path1/file.orc",
       "user":      { "name": "path1-r-user" },
       "access":    { "resource": "path:mybucket/data/path1/file.orc", "action": "update", "permissions": [ "read", "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "path1-r-user read,write /data/path1/file.orc",
+      "requestId": "path1-r-user read,write mybucket/data/path1/file.orc",
       "decision":  "DENY",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "ALLOW", "policy": { "id":  1, "version": 1 } } },
@@ -50,13 +50,13 @@
   },
   {
     "request": {
-      "requestId": "path1-rw-user write /data/path1/file.orc",
+      "requestId": "path1-rw-user write mybucket/data/path1/file.orc",
       "user":      { "name": "path1-rw-user" },
       "access":    { "resource": "path:mybucket/data/path1/file.orc", "action": "write", "permissions": [ "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "path1-rw-user write /data/path1/file.orc",
+      "requestId": "path1-rw-user write mybucket/data/path1/file.orc",
       "decision":  "ALLOW",
       "permissions": {
         "write": { "permission": "write", "access": { "decision": "ALLOW", "policy": { "id":  1, "version": 1 } } }
@@ -65,13 +65,13 @@
   },
   {
     "request": {
-      "requestId": "path1-rw-user read,write /data/path1/file.orc",
+      "requestId": "path1-rw-user read,write mybucket/data/path1/file.orc",
       "user":      { "name": "path1-rw-user" },
       "access":    { "resource": "path:mybucket/data/path1/file.orc", "action": "update", "permissions": [ "read", "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "path1-rw-user read,write /data/path1/file.orc",
+      "requestId": "path1-rw-user read,write mybucket/data/path1/file.orc",
       "decision":  "ALLOW",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "ALLOW", "policy": { "id":  1, "version": 1 } } },
@@ -81,13 +81,13 @@
   },
   {
     "request": {
-      "requestId": "path2-r-user read /data/path1/file.orc",
+      "requestId": "path2-r-user read mybucket/data/path1/file.orc",
       "user":      { "name": "path2-r-user" },
       "access":    { "resource": "path:mybucket/data/path1/file.orc", "action": "read", "permissions": [ "read" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "path2-r-user read /data/path1/file.orc",
+      "requestId": "path2-r-user read mybucket/data/path1/file.orc",
       "decision":  "DENY",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "DENY", "policy": { "id":  -1 } } }
@@ -96,13 +96,13 @@
   },
   {
     "request": {
-      "requestId": "path2-r-user write /data/path1/file.orc",
+      "requestId": "path2-r-user write mybucket/data/path1/file.orc",
       "user":      { "name": "path2-r-user" },
       "access":    { "resource": "path:mybucket/data/path1/file.orc", "action": "write", "permissions": [ "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "path2-r-user write /data/path1/file.orc",
+      "requestId": "path2-r-user write mybucket/data/path1/file.orc",
       "decision":  "DENY",
       "permissions": {
         "write": { "permission": "write", "access": { "decision": "DENY", "policy": { "id":  -1 } } }
@@ -111,13 +111,13 @@
   },
   {
     "request": {
-      "requestId": "all-path-r-user read /data/path1/file.orc",
+      "requestId": "all-path-r-user read mybucket/data/path1/file.orc",
       "user":      { "name": "all-path-r-user" },
       "access":    { "resource": "path:mybucket/data/path1/file.orc", "action": "read", "permissions": [ "read" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "all-path-r-user read /data/path1/file.orc",
+      "requestId": "all-path-r-user read mybucket/data/path1/file.orc",
       "decision":  "ALLOW",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "ALLOW", "policy": { "id": 3, "version": 2 } } }
@@ -126,13 +126,13 @@
   },
   {
     "request": {
-      "requestId": "all-path-r-user write /data/path1/file.orc",
+      "requestId": "all-path-r-user write mybucket/data/path1/file.orc",
       "user":      { "name": "all-path-r-user" },
       "access":    { "resource": "path:mybucket/data/path1/file.orc", "action": "write", "permissions": [ "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "all-path-r-user write /data/path1/file.orc",
+      "requestId": "all-path-r-user write mybucket/data/path1/file.orc",
       "decision":  "DENY",
       "permissions": {
         "write": { "permission": "write", "access": { "decision": "DENY", "policy": { "id":  -1 } } }
@@ -141,17 +141,17 @@
   },
 
   {
-    "comment": "tests for path /data/path2/file.orc"
+    "comment": "tests for path mybucket/data/path2/file.orc"
   },
   {
     "request": {
-      "requestId": "path2-r-user read /data/path2/file.orc",
+      "requestId": "path2-r-user read mybucket/data/path2/file.orc",
       "user":      { "name": "path2-r-user" },
       "access":    { "resource": "path:mybucket/data/path2/file.orc", "action": "read", "permissions": [ "read" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "path2-r-user read /data/path2/file.orc",
+      "requestId": "path2-r-user read mybucket/data/path2/file.orc",
       "decision":  "ALLOW",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "ALLOW", "policy": { "id": 2, "version": 1 } } }
@@ -160,13 +160,13 @@
   },
   {
     "request": {
-      "requestId": "path2-r-user write /data/path2/file.orc",
+      "requestId": "path2-r-user write mybucket/data/path2/file.orc",
       "user":      { "name": "path2-r-user" },
       "access":    { "resource": "path:mybucket/data/path2/file.orc", "action": "write", "permissions": [ "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "path2-r-user write /data/path2/file.orc",
+      "requestId": "path2-r-user write mybucket/data/path2/file.orc",
       "decision":  "DENY",
       "permissions": {
         "write": { "permission": "write", "access": { "decision": "DENY", "policy": { "id":  -1 } } }
@@ -175,13 +175,13 @@
   },
   {
     "request": {
-      "requestId": "path2-r-user read,write /data/path2/file.orc",
+      "requestId": "path2-r-user read,write mybucket/data/path2/file.orc",
       "user":      { "name": "path2-r-user" },
       "access":    { "resource": "path:mybucket/data/path2/file.orc", "action": "update", "permissions": [ "read", "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "path2-r-user read,write /data/path2/file.orc",
+      "requestId": "path2-r-user read,write mybucket/data/path2/file.orc",
       "decision":  "DENY",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "ALLOW", "policy": { "id":  2, "version": 1 } } },
@@ -191,13 +191,13 @@
   },
   {
     "request": {
-      "requestId": "path2-rw-user write /data/path2/file.orc",
+      "requestId": "path2-rw-user write mybucket/data/path2/file.orc",
       "user":      { "name": "path2-rw-user" },
       "access":    { "resource": "path:mybucket/data/path2/file.orc", "action": "write", "permissions": [ "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "path2-rw-user write /data/path2/file.orc",
+      "requestId": "path2-rw-user write mybucket/data/path2/file.orc",
       "decision":  "ALLOW",
       "permissions": {
         "write": { "permission": "write", "access": { "decision": "ALLOW", "policy": { "id":  2, "version": 1 } } }
@@ -206,13 +206,13 @@
   },
   {
     "request": {
-      "requestId": "path2-rw-user read,write /data/path2/file.orc",
+      "requestId": "path2-rw-user read,write mybucket/data/path2/file.orc",
       "user":      { "name": "path2-rw-user" },
       "access":    { "resource": "path:mybucket/data/path2/file.orc", "action": "update", "permissions": [ "read", "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "path2-rw-user read,write /data/path2/file.orc",
+      "requestId": "path2-rw-user read,write mybucket/data/path2/file.orc",
       "decision":  "ALLOW",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "ALLOW", "policy": { "id":  2, "version": 1 } } },
@@ -222,13 +222,13 @@
   },
   {
     "request": {
-      "requestId": "path1-r-user read /data/path2/file.orc",
+      "requestId": "path1-r-user read mybucket/data/path2/file.orc",
       "user":      { "name": "path1-r-user" },
       "access":    { "resource": "path:mybucket/data/path2/file.orc", "action": "read", "permissions": [ "read" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "path1-r-user read /data/path2/file.orc",
+      "requestId": "path1-r-user read mybucket/data/path2/file.orc",
       "decision":  "DENY",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "DENY", "policy": { "id":  -1 } } }
@@ -237,13 +237,13 @@
   },
   {
     "request": {
-      "requestId": "path1-r-user write /data/path2/file.orc",
+      "requestId": "path1-r-user write mybucket/data/path2/file.orc",
       "user":      { "name": "path1-r-user" },
       "access":    { "resource": "path:mybucket/data/path2/file.orc", "action": "write", "permissions": [ "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "path1-r-user write /data/path2/file.orc",
+      "requestId": "path1-r-user write mybucket/data/path2/file.orc",
       "decision":  "DENY",
       "permissions": {
         "write": { "permission": "write", "access": { "decision": "DENY", "policy": { "id":  -1 } } }
@@ -252,13 +252,13 @@
   },
   {
     "request": {
-      "requestId": "all-path-r-user read /data/path2/file.orc",
+      "requestId": "all-path-r-user read mybucket/data/path2/file.orc",
       "user":      { "name": "all-path-r-user" },
       "access":    { "resource": "path:mybucket/data/path2/file.orc", "action": "read", "permissions": [ "read" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "all-path-r-user read /data/path2/file.orc",
+      "requestId": "all-path-r-user read mybucket/data/path2/file.orc",
       "decision":  "ALLOW",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "ALLOW", "policy": { "id": 3, "version": 2 } } }
@@ -267,13 +267,13 @@
   },
   {
     "request": {
-      "requestId": "all-path-r-user write /data/path2/file.orc",
+      "requestId": "all-path-r-user write mybucket/data/path2/file.orc",
       "user":      { "name": "all-path-r-user" },
       "access":    { "resource": "path:mybucket/data/path2/file.orc", "action": "write", "permissions": [ "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "all-path-r-user write /data/path2/file.orc",
+      "requestId": "all-path-r-user write mybucket/data/path2/file.orc",
       "decision":  "DENY",
       "permissions": {
         "write": { "permission": "write", "access": { "decision": "DENY", "policy": { "id":  -1 } } }
@@ -282,17 +282,17 @@
   },
 
   {
-    "comment": "tests for path /data/tag1/file.orc"
+    "comment": "tests for path mybucket/data/tag1/file.orc"
   },
   {
     "request": {
-      "requestId": "tag1-r-user read /data/tag1/file.orc",
+      "requestId": "tag1-r-user read mybucket/data/tag1/file.orc",
       "user":      { "name": "tag1-r-user" },
       "access":    { "resource": "path:mybucket/data/tag1/file.orc", "action": "read", "permissions": [ "read" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "tag1-r-user read /data/tag1/file.orc",
+      "requestId": "tag1-r-user read mybucket/data/tag1/file.orc",
       "decision":  "ALLOW",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "ALLOW", "policy": { "id": 11, "version": 1 } } }
@@ -301,13 +301,13 @@
   },
   {
     "request": {
-      "requestId": "tag1-r-user write /data/tag1/file.orc",
+      "requestId": "tag1-r-user write mybucket/data/tag1/file.orc",
       "user":      { "name": "tag1-r-user" },
       "access":    { "resource": "path:mybucket/data/tag1/file.orc", "action": "write", "permissions": [ "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "tag1-r-user write /data/tag1/file.orc",
+      "requestId": "tag1-r-user write mybucket/data/tag1/file.orc",
       "decision":  "DENY",
       "permissions": {
         "write": { "permission": "write", "access": { "decision": "DENY", "policy": { "id":  -1 } } }
@@ -316,13 +316,13 @@
   },
   {
     "request": {
-      "requestId": "tag1-r-user read,write /data/tag1/file.orc",
+      "requestId": "tag1-r-user read,write mybucket/data/tag1/file.orc",
       "user":      { "name": "tag1-r-user" },
       "access":    { "resource": "path:mybucket/data/tag1/file.orc", "action": "update", "permissions": [ "read", "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "tag1-r-user read,write /data/tag1/file.orc",
+      "requestId": "tag1-r-user read,write mybucket/data/tag1/file.orc",
       "decision":  "DENY",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "ALLOW", "policy": { "id":  11, "version": 1 } } },
@@ -332,13 +332,13 @@
   },
   {
     "request": {
-      "requestId": "tag1-rw-user write /data/tag1/file.orc",
+      "requestId": "tag1-rw-user write mybucket/data/tag1/file.orc",
       "user":      { "name": "tag1-rw-user" },
       "access":    { "resource": "path:mybucket/data/tag1/file.orc", "action": "write", "permissions": [ "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "tag1-rw-user write /data/tag1/file.orc",
+      "requestId": "tag1-rw-user write mybucket/data/tag1/file.orc",
       "decision":  "ALLOW",
       "permissions": {
         "write": { "permission": "write", "access": { "decision": "ALLOW", "policy": { "id":  11, "version": 1 } } }
@@ -347,13 +347,13 @@
   },
   {
     "request": {
-      "requestId": "tag1-rw-user read,write /data/tag1/file.orc",
+      "requestId": "tag1-rw-user read,write mybucket/data/tag1/file.orc",
       "user":      { "name": "tag1-rw-user" },
       "access":    { "resource": "path:mybucket/data/tag1/file.orc", "action": "update", "permissions": [ "read", "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "tag1-rw-user read,write /data/tag1/file.orc",
+      "requestId": "tag1-rw-user read,write mybucket/data/tag1/file.orc",
       "decision":  "ALLOW",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "ALLOW", "policy": { "id":  11, "version": 1 } } },
@@ -363,13 +363,13 @@
   },
   {
     "request": {
-      "requestId": "tag2-r-user read /data/tag1/file.orc",
+      "requestId": "tag2-r-user read mybucket/data/tag1/file.orc",
       "user":      { "name": "tag2-r-user" },
       "access":    { "resource": "path:mybucket/data/tag1/file.orc", "action": "read", "permissions": [ "read" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "tag2-r-user read /data/tag1/file.orc",
+      "requestId": "tag2-r-user read mybucket/data/tag1/file.orc",
       "decision":  "DENY",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "DENY", "policy": { "id":  -1 } } }
@@ -378,13 +378,13 @@
   },
   {
     "request": {
-      "requestId": "tag2-r-user write /data/tag1/file.orc",
+      "requestId": "tag2-r-user write mybucket/data/tag1/file.orc",
       "user":      { "name": "tag2-r-user" },
       "access":    { "resource": "path:mybucket/data/tag1/file.orc", "action": "write", "permissions": [ "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "tag2-r-user write /data/tag1/file.orc",
+      "requestId": "tag2-r-user write mybucket/data/tag1/file.orc",
       "decision":  "DENY",
       "permissions": {
         "write": { "permission": "write", "access": { "decision": "DENY", "policy": { "id":  -1 } } }
@@ -393,13 +393,13 @@
   },
   {
     "request": {
-      "requestId": "all-path-r-user read /data/tag1/file.orc",
+      "requestId": "all-path-r-user read mybucket/data/tag1/file.orc",
       "user":      { "name": "all-path-r-user" },
       "access":    { "resource": "path:mybucket/data/tag1/file.orc", "action": "read", "permissions": [ "read" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "all-path-r-user read /data/tag1/file.orc",
+      "requestId": "all-path-r-user read mybucket/data/tag1/file.orc",
       "decision":  "ALLOW",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "ALLOW", "policy": { "id": 3, "version": 2 } } }
@@ -408,13 +408,13 @@
   },
   {
     "request": {
-      "requestId": "all-path-r-user write /data/tag1/file.orc",
+      "requestId": "all-path-r-user write mybucket/data/tag1/file.orc",
       "user":      { "name": "all-path-r-user" },
       "access":    { "resource": "path:mybucket/data/tag1/file.orc", "action": "write", "permissions": [ "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "all-path-r-user write /data/tag1/file.orc",
+      "requestId": "all-path-r-user write mybucket/data/tag1/file.orc",
       "decision":  "DENY",
       "permissions": {
         "write": { "permission": "write", "access": { "decision": "DENY", "policy": { "id":  -1 } } }
@@ -424,17 +424,17 @@
 
 
   {
-    "comment": "tests for path /data/tag2/file.orc"
+    "comment": "tests for path mybucket/data/tag2/file.orc"
   },
   {
     "request": {
-      "requestId": "tag2-r-user read /data/tag2/file.orc",
+      "requestId": "tag2-r-user read mybucket/data/tag2/file.orc",
       "user":      { "name": "tag2-r-user" },
       "access":    { "resource": "path:mybucket/data/tag2/file.orc", "action": "read", "permissions": [ "read" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "tag2-r-user read /data/tag2/file.orc",
+      "requestId": "tag2-r-user read mybucket/data/tag2/file.orc",
       "decision":  "ALLOW",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "ALLOW", "policy": { "id": 12, "version": 1 } } }
@@ -443,13 +443,13 @@
   },
   {
     "request": {
-      "requestId": "tag2-r-user write /data/tag2/file.orc",
+      "requestId": "tag2-r-user write mybucket/data/tag2/file.orc",
       "user":      { "name": "tag2-r-user" },
       "access":    { "resource": "path:mybucket/data/tag2/file.orc", "action": "write", "permissions": [ "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "tag2-r-user write /data/tag2/file.orc",
+      "requestId": "tag2-r-user write mybucket/data/tag2/file.orc",
       "decision":  "DENY",
       "permissions": {
         "write": { "permission": "write", "access": { "decision": "DENY", "policy": { "id":  -1 } } }
@@ -458,13 +458,13 @@
   },
   {
     "request": {
-      "requestId": "tag2-r-user read,write /data/tag2/file.orc",
+      "requestId": "tag2-r-user read,write mybucket/data/tag2/file.orc",
       "user":      { "name": "tag2-r-user" },
       "access":    { "resource": "path:mybucket/data/tag2/file.orc", "action": "update", "permissions": [ "read", "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "tag2-r-user read,write /data/tag2/file.orc",
+      "requestId": "tag2-r-user read,write mybucket/data/tag2/file.orc",
       "decision":  "DENY",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "ALLOW", "policy": { "id":  12, "version": 1 } } },
@@ -474,13 +474,13 @@
   },
   {
     "request": {
-      "requestId": "tag2-rw-user write /data/tag2/file.orc",
+      "requestId": "tag2-rw-user write mybucket/data/tag2/file.orc",
       "user":      { "name": "tag2-rw-user" },
       "access":    { "resource": "path:mybucket/data/tag2/file.orc", "action": "write", "permissions": [ "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "tag2-rw-user write /data/tag2/file.orc",
+      "requestId": "tag2-rw-user write mybucket/data/tag2/file.orc",
       "decision":  "ALLOW",
       "permissions": {
         "write": { "permission": "write", "access": { "decision": "ALLOW", "policy": { "id":  12, "version": 1 } } }
@@ -489,13 +489,13 @@
   },
   {
     "request": {
-      "requestId": "tag2-rw-user read,write /data/tag2/file.orc",
+      "requestId": "tag2-rw-user read,write mybucket/data/tag2/file.orc",
       "user":      { "name": "tag2-rw-user" },
       "access":    { "resource": "path:mybucket/data/tag2/file.orc", "action": "update", "permissions": [ "read", "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "tag2-rw-user read,write /data/tag2/file.orc",
+      "requestId": "tag2-rw-user read,write mybucket/data/tag2/file.orc",
       "decision":  "ALLOW",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "ALLOW", "policy": { "id":  12, "version": 1 } } },
@@ -505,13 +505,13 @@
   },
   {
     "request": {
-      "requestId": "tag1-r-user read /data/tag2/file.orc",
+      "requestId": "tag1-r-user read mybucket/data/tag2/file.orc",
       "user":      { "name": "tag1-r-user" },
       "access":    { "resource": "path:mybucket/data/tag2/file.orc", "action": "read", "permissions": [ "read" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "tag1-r-user read /data/tag2/file.orc",
+      "requestId": "tag1-r-user read mybucket/data/tag2/file.orc",
       "decision":  "DENY",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "DENY", "policy": { "id":  -1 } } }
@@ -520,13 +520,13 @@
   },
   {
     "request": {
-      "requestId": "tag1-r-user write /data/tag2/file.orc",
+      "requestId": "tag1-r-user write mybucket/data/tag2/file.orc",
       "user":      { "name": "tag1-r-user" },
       "access":    { "resource": "path:mybucket/data/tag2/file.orc", "action": "write", "permissions": [ "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "tag1-r-user write /data/tag2/file.orc",
+      "requestId": "tag1-r-user write mybucket/data/tag2/file.orc",
       "decision":  "DENY",
       "permissions": {
         "write": { "permission": "write", "access": { "decision": "DENY", "policy": { "id":  -1 } } }
@@ -535,13 +535,13 @@
   },
   {
     "request": {
-      "requestId": "all-path-r-user read /data/tag2/file.orc",
+      "requestId": "all-path-r-user read mybucket/data/tag2/file.orc",
       "user":      { "name": "all-path-r-user" },
       "access":    { "resource": "path:mybucket/data/tag2/file.orc", "action": "read", "permissions": [ "read" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "all-path-r-user read /data/tag2/file.orc",
+      "requestId": "all-path-r-user read mybucket/data/tag2/file.orc",
       "decision":  "ALLOW",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "ALLOW", "policy": { "id": 3, "version": 2 } } }
@@ -550,13 +550,13 @@
   },
   {
     "request": {
-      "requestId": "all-path-r-user write /data/tag2/file.orc",
+      "requestId": "all-path-r-user write mybucket/data/tag2/file.orc",
       "user":      { "name": "all-path-r-user" },
       "access":    { "resource": "path:mybucket/data/tag2/file.orc", "action": "write", "permissions": [ "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "all-path-r-user write /data/tag2/file.orc",
+      "requestId": "all-path-r-user write mybucket/data/tag2/file.orc",
       "decision":  "DENY",
       "permissions": {
         "write": { "permission": "write", "access": { "decision": "DENY", "policy": { "id":  -1 } } }
@@ -566,17 +566,17 @@
 
 
   {
-    "comment": "tests for path /data/ds1/file.orc"
+    "comment": "tests for path mybucket/data/ds1/file.orc"
   },
   {
     "request": {
-      "requestId": "ds1-r-user read /data/ds1/file.orc",
+      "requestId": "ds1-r-user read mybucket/data/ds1/file.orc",
       "user":      { "name": "ds1-r-user" },
       "access":    { "resource": "path:mybucket/data/ds1/file.orc", "action": "read", "permissions": [ "read" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "ds1-r-user read /data/ds1/file.orc",
+      "requestId": "ds1-r-user read mybucket/data/ds1/file.orc",
       "decision":  "ALLOW",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "ALLOW", "policy": { "id": 41, "version": 1 } } }
@@ -585,13 +585,13 @@
   },
   {
     "request": {
-      "requestId": "ds1-r-user write /data/ds1/file.orc",
+      "requestId": "ds1-r-user write mybucket/data/ds1/file.orc",
       "user":      { "name": "ds1-r-user" },
       "access":    { "resource": "path:mybucket/data/ds1/file.orc", "action": "write", "permissions": [ "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "ds1-r-user write /data/ds1/file.orc",
+      "requestId": "ds1-r-user write mybucket/data/ds1/file.orc",
       "decision":  "DENY",
       "permissions": {
         "write": { "permission": "write", "access": { "decision": "DENY", "policy": { "id":  -1 } } }
@@ -600,13 +600,13 @@
   },
   {
     "request": {
-      "requestId": "ds1-r-user read,write /data/ds1/file.orc",
+      "requestId": "ds1-r-user read,write mybucket/data/ds1/file.orc",
       "user":      { "name": "ds1-r-user" },
       "access":    { "resource": "path:mybucket/data/ds1/file.orc", "action": "update", "permissions": [ "read", "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "ds1-r-user read,write /data/ds1/file.orc",
+      "requestId": "ds1-r-user read,write mybucket/data/ds1/file.orc",
       "decision":  "DENY",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "ALLOW", "policy": { "id":  41, "version": 1 } } },
@@ -616,13 +616,13 @@
   },
   {
     "request": {
-      "requestId": "ds2-r-user read /data/ds1/file.orc",
+      "requestId": "ds2-r-user read mybucket/data/ds1/file.orc",
       "user":      { "name": "ds2-r-user" },
       "access":    { "resource": "path:mybucket/data/ds1/file.orc", "action": "read", "permissions": [ "read" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "ds2-r-user read /data/ds1/file.orc",
+      "requestId": "ds2-r-user read mybucket/data/ds1/file.orc",
       "decision":  "DENY",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "DENY", "policy": { "id":  -1 } } }
@@ -631,13 +631,13 @@
   },
   {
     "request": {
-      "requestId": "ds2-r-user write /data/ds1/file.orc",
+      "requestId": "ds2-r-user write mybucket/data/ds1/file.orc",
       "user":      { "name": "ds2-r-user" },
       "access":    { "resource": "path:mybucket/data/ds1/file.orc", "action": "write", "permissions": [ "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "ds2-r-user write /data/ds1/file.orc",
+      "requestId": "ds2-r-user write mybucket/data/ds1/file.orc",
       "decision":  "DENY",
       "permissions": {
         "write": { "permission": "write", "access": { "decision": "DENY", "policy": { "id":  -1 } } }
@@ -646,13 +646,13 @@
   },
   {
     "request": {
-      "requestId": "all-path-r-user read /data/ds1/file.orc",
+      "requestId": "all-path-r-user read mybucket/data/ds1/file.orc",
       "user":      { "name": "all-path-r-user" },
       "access":    { "resource": "path:mybucket/data/ds1/file.orc", "action": "read", "permissions": [ "read" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "all-path-r-user read /data/ds1/file.orc",
+      "requestId": "all-path-r-user read mybucket/data/ds1/file.orc",
       "decision":  "ALLOW",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "ALLOW", "policy": { "id": 3, "version": 2 } } }
@@ -661,13 +661,13 @@
   },
   {
     "request": {
-      "requestId": "all-path-r-user write /data/ds1/file.orc",
+      "requestId": "all-path-r-user write mybucket/data/ds1/file.orc",
       "user":      { "name": "all-path-r-user" },
       "access":    { "resource": "path:mybucket/data/ds1/file.orc", "action": "write", "permissions": [ "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "all-path-r-user write /data/ds1/file.orc",
+      "requestId": "all-path-r-user write mybucket/data/ds1/file.orc",
       "decision":  "DENY",
       "permissions": {
         "write": { "permission": "write", "access": { "decision": "DENY", "policy": { "id":  -1 } } }
@@ -677,17 +677,17 @@
 
 
   {
-    "comment": "tests for path /data/ds2/file.orc"
+    "comment": "tests for path mybucket/data/ds2/file.orc"
   },
   {
     "request": {
-      "requestId": "ds2-r-user read /data/ds2/file.orc",
+      "requestId": "ds2-r-user read mybucket/data/ds2/file.orc",
       "user":      { "name": "ds2-r-user" },
       "access":    { "resource": "path:mybucket/data/ds2/file.orc", "action": "read", "permissions": [ "read" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "ds2-r-user read /data/ds2/file.orc",
+      "requestId": "ds2-r-user read mybucket/data/ds2/file.orc",
       "decision":  "ALLOW",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "ALLOW", "policy": { "id": 42, "version": 1 } } }
@@ -696,13 +696,13 @@
   },
   {
     "request": {
-      "requestId": "ds2-r-user write /data/ds2/file.orc",
+      "requestId": "ds2-r-user write mybucket/data/ds2/file.orc",
       "user":      { "name": "ds2-r-user" },
       "access":    { "resource": "path:mybucket/data/ds2/file.orc", "action": "write", "permissions": [ "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "ds2-r-user write /data/ds2/file.orc",
+      "requestId": "ds2-r-user write mybucket/data/ds2/file.orc",
       "decision":  "DENY",
       "permissions": {
         "write": { "permission": "write", "access": { "decision": "DENY", "policy": { "id":  -1 } } }
@@ -711,13 +711,13 @@
   },
   {
     "request": {
-      "requestId": "ds2-r-user read,write /data/ds2/file.orc",
+      "requestId": "ds2-r-user read,write mybucket/data/ds2/file.orc",
       "user":      { "name": "ds2-r-user" },
       "access":    { "resource": "path:mybucket/data/ds2/file.orc", "action": "update", "permissions": [ "read", "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "ds2-r-user read,write /data/ds2/file.orc",
+      "requestId": "ds2-r-user read,write mybucket/data/ds2/file.orc",
       "decision":  "DENY",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "ALLOW", "policy": { "id":  42, "version": 1 } } },
@@ -727,13 +727,13 @@
   },
   {
     "request": {
-      "requestId": "ds1-r-user read /data/ds2/file.orc",
+      "requestId": "ds1-r-user read mybucket/data/ds2/file.orc",
       "user":      { "name": "ds1-r-user" },
       "access":    { "resource": "path:mybucket/data/ds2/file.orc", "action": "read", "permissions": [ "read" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "ds1-r-user read /data/ds2/file.orc",
+      "requestId": "ds1-r-user read mybucket/data/ds2/file.orc",
       "decision":  "DENY",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "DENY", "policy": { "id":  -1 } } }
@@ -742,13 +742,13 @@
   },
   {
     "request": {
-      "requestId": "ds1-r-user write /data/ds2/file.orc",
+      "requestId": "ds1-r-user write mybucket/data/ds2/file.orc",
       "user":      { "name": "ds1-r-user" },
       "access":    { "resource": "path:mybucket/data/ds2/file.orc", "action": "write", "permissions": [ "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "ds1-r-user write /data/ds2/file.orc",
+      "requestId": "ds1-r-user write mybucket/data/ds2/file.orc",
       "decision":  "DENY",
       "permissions": {
         "write": { "permission": "write", "access": { "decision": "DENY", "policy": { "id":  -1 } } }
@@ -757,13 +757,13 @@
   },
   {
     "request": {
-      "requestId": "all-path-r-user read /data/ds2/file.orc",
+      "requestId": "all-path-r-user read mybucket/data/ds2/file.orc",
       "user":      { "name": "all-path-r-user" },
       "access":    { "resource": "path:mybucket/data/ds2/file.orc", "action": "read", "permissions": [ "read" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "all-path-r-user read /data/ds2/file.orc",
+      "requestId": "all-path-r-user read mybucket/data/ds2/file.orc",
       "decision":  "ALLOW",
       "permissions": {
         "read": { "permission": "read", "access": { "decision": "ALLOW", "policy": { "id": 3, "version": 2 } } }
@@ -772,13 +772,13 @@
   },
   {
     "request": {
-      "requestId": "all-path-r-user write /data/ds2/file.orc",
+      "requestId": "all-path-r-user write mybucket/data/ds2/file.orc",
       "user":      { "name": "all-path-r-user" },
       "access":    { "resource": "path:mybucket/data/ds2/file.orc", "action": "write", "permissions": [ "write" ] },
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "all-path-r-user write /data/ds2/file.orc",
+      "requestId": "all-path-r-user write mybucket/data/ds2/file.orc",
       "decision":  "DENY",
       "permissions": {
         "write": { "permission": "write", "access": { "decision": "DENY", "policy": { "id":  -1 } } }

@@ -90,7 +90,7 @@ public class RangerEmbeddedAuthorizer extends RangerAuthorizer {
     public RangerMultiAuthzResult authorize(RangerMultiAuthzRequest request) throws RangerAuthzException {
         LOG.debug("==> authorize(request={})", request);
 
-        validateAccessContext(request.getContext());
+        validateRequest(request);
 
         RangerMultiAuthzResult result = new RangerMultiAuthzResult(request.getRequestId());
 

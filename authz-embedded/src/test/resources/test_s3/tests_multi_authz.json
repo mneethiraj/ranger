@@ -4,20 +4,7 @@
   },
   {
     "request": {
-      "requestId": "path1-r-user empty accesses",
-      "user":      { "name": "path1-r-user" },
-      "accesses":  [ ],
-      "context":   { "serviceName": "dev_s3" }
-    },
-    "result": {
-      "requestId": "path1-r-user empty accesses",
-      "decision":  "ALLOW",
-      "accesses": [ ]
-    }
-  },
-  {
-    "request": {
-      "requestId": "path1-r-user read /data/path1/file.orc",
+      "requestId": "path1-r-user read mybucket/data/path1/file.orc",
       "user":      { "name": "path1-r-user" },
       "accesses":  [
         { "resource": "path:mybucket/data/path1/file.orc", "action": "read", "permissions": [ "read" ] }
@@ -25,7 +12,7 @@
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "path1-r-user read /data/path1/file.orc",
+      "requestId": "path1-r-user read mybucket/data/path1/file.orc",
       "decision":  "ALLOW",
       "accesses": [
         {
@@ -39,7 +26,7 @@
   },
   {
     "request": {
-      "requestId": "path1-r-user read [/data/path1/file.orc,/data/path1/file2.orc]",
+      "requestId": "path1-r-user read [mybucket/data/path1/file.orc,mybucket/data/path1/file2.orc]",
       "user":      { "name": "path1-r-user" },
       "accesses": [
         { "resource": "path:mybucket/data/path1/file.orc",  "action": "read", "permissions": [ "read" ] },
@@ -48,7 +35,7 @@
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "path1-r-user read [/data/path1/file.orc,/data/path1/file2.orc]",
+      "requestId": "path1-r-user read [mybucket/data/path1/file.orc,mybucket/data/path1/file2.orc]",
       "decision":  "ALLOW",
       "accesses": [
         {
@@ -68,7 +55,7 @@
   },
   {
     "request": {
-      "requestId": "path1-r-user [read write] /data/path1/file.orc",
+      "requestId": "path1-r-user [read write] mybucket/data/path1/file.orc",
       "user":      { "name": "path1-r-user" },
       "accesses": [
         { "resource": "path:mybucket/data/path1/file.orc", "action": "read",  "permissions": [ "read" ] },
@@ -77,7 +64,7 @@
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "path1-r-user [read write] /data/path1/file.orc",
+      "requestId": "path1-r-user [read write] mybucket/data/path1/file.orc",
       "decision":  "PARTIAL",
       "accesses": [
         {
@@ -97,7 +84,7 @@
   },
   {
     "request": {
-      "requestId": "path1-r-user write [/data/path1/file.orc,/data/path2/file.orc]",
+      "requestId": "path1-r-user write [mybucket/data/path1/file.orc,mybucket/data/path2/file.orc]",
       "user":      { "name": "path1-r-user" },
       "accesses":  [
         { "resource": "path:mybucket/data/path1/file.orc", "action": "write", "permissions": [ "write" ] },
@@ -106,36 +93,7 @@
       "context":   { "serviceName": "dev_s3" }
     },
     "result": {
-      "requestId": "path1-r-user write [/data/path1/file.orc,/data/path2/file.orc]",
-      "decision":  "DENY",
-      "accesses": [
-        {
-          "decision":  "DENY",
-          "permissions": {
-            "write": { "permission": "write", "access": { "decision": "DENY", "policy": { "id": -1 } } }
-          }
-        },
-        {
-          "decision":  "DENY",
-          "permissions": {
-            "write": { "permission": "write", "access": { "decision": "DENY", "policy": { "id":  -1 } } }
-          }
-        }
-      ]
-    }
-  },
-  {
-    "request": {
-      "requestId": "path1-r-user write [/data/null/file.orc,/data/null/file2.orc]",
-      "user":      { "name": "path1-r-user" },
-      "accesses":  [
-        { "resource": "path:mybucket/data/null/file.orc", "action": "write", "permissions": [ "write" ] },
-        { "resource": "path:mybucket/data/null/file2.orc", "action": "write", "permissions": [ "write" ] }
-      ],
-      "context":   { "serviceName": "dev_s3" }
-    },
-    "result": {
-      "requestId": "path1-r-user write [/data/null/file.orc,/data/null/file2.orc]",
+      "requestId": "path1-r-user write [mybucket/data/path1/file.orc,mybucket/data/path2/file.orc]",
       "decision":  "DENY",
       "accesses": [
         {

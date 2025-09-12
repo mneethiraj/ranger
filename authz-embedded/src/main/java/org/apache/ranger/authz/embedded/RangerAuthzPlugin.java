@@ -79,19 +79,6 @@ public class RangerAuthzPlugin {
         plugin.cleanup();
     }
 
-    private void updateResult(AccessResult from, AccessResult to) {
-        if (from == null || to == null || from.getDecision() == null ||
-                to.getDecision() == from.getDecision() || // no change in decision
-                to.getDecision() == AccessDecision.DENY) { // don't override earlier DENY
-            return;
-        }
-
-        if (to.getDecision() == null || from.getDecision() == AccessDecision.DENY || from.getDecision() == AccessDecision.NOT_DETERMINED) {
-            to.setDecision(from.getDecision());
-            to.setPolicy(from.getPolicy());
-        }
-    }
-
     public RangerAuthzResult authorize(RangerAuthzRequest request) throws RangerAuthzException {
         RangerUserInfo          userInfo      = request.getUser();
         RangerAccessInfo        access        = request.getAccess();
@@ -130,10 +117,6 @@ public class RangerAuthzPlugin {
                     accessRequest.setContext(new HashMap<>(context.getAdditionalInfo())); // reset the context
 
                     PermissionResult subResPermResult = evaluate(accessRequest);
-
-                    if (subResPermResult.getAccess().getDecision() != AccessDecision.ALLOW) {
-                        permResult.setAccess(subResPermResult.getAccess());
-                    }
 
                     updateResult(subResPermResult.getAccess(), permResult.getAccess());
 
@@ -206,6 +189,19 @@ public class RangerAuthzPlugin {
         Object ret = context != null ? context.get(RangerAccessContext.CONTEXT_INFO_REQUEST_DATA) : null;
 
         return ret != null ? ret.toString() : null;
+    }
+
+    private void updateResult(AccessResult from, AccessResult to) {
+        if (from == null || to == null || from.getDecision() == null ||
+                to.getDecision() == from.getDecision() || // no change in decision
+                to.getDecision() == AccessDecision.DENY) { // don't override earlier DENY
+            return;
+        }
+
+        if (to.getDecision() == null || from.getDecision() == AccessDecision.DENY || from.getDecision() == AccessDecision.NOT_DETERMINED) {
+            to.setDecision(from.getDecision());
+            to.setPolicy(from.getPolicy());
+        }
     }
 
     private PermissionResult toPermissionResult(RangerAccessResult result) {

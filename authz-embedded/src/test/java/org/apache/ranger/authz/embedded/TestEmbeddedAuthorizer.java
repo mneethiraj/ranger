@@ -51,7 +51,7 @@ public class TestEmbeddedAuthorizer {
 
     private void runAuthzTest(String testName) throws Exception {
         String propertiesPath = "/" + testName + "/ranger-embedded-authz.properties";
-        String testsPath      = "/" + testName + "/authz_tests.json";
+        String testsPath      = "/" + testName + "/tests_authz.json";
 
         RangerEmbeddedAuthorizer authorizer = null;
 
@@ -82,7 +82,7 @@ public class TestEmbeddedAuthorizer {
 
     private void runMultiAuthzTest(String testName) throws Exception {
         String propertiesPath = "/" + testName + "/ranger-embedded-authz.properties";
-        String testsPath      = "/" + testName + "/multi_authz_tests.json";
+        String testsPath      = "/" + testName + "/tests_multi_authz.json";
 
         RangerEmbeddedAuthorizer authorizer = null;
 
