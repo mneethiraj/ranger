@@ -108,6 +108,7 @@ public class RangerAuthzPlugin {
             PermissionResult permResult = evaluate(accessRequest, auditHandler);
 
             if (CollectionUtils.isNotEmpty(access.getSubResources())) {
+                permResult.setAccess(new AccessResult());
                 permResult.setSubResources(new HashMap<>(access.getSubResources().size()));
 
                 for (String subResourceName : access.getSubResources()) {
@@ -122,6 +123,11 @@ public class RangerAuthzPlugin {
 
                     permResult.getSubResources().put(subResourceName, subResPermResult);
                 }
+            }
+
+            if (permResult.getAccess().getDecision() == AccessDecision.DENY) {
+                permResult.setDataMask(null);
+                permResult.setRowFilter(null);
             }
 
             ret.getPermissions().put(permission, permResult);

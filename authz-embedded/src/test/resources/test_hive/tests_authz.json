@@ -784,5 +784,46 @@
         "update": { "permission": "update", "access": { "decision": "DENY", "policy": { "id":  -1 } } }
       }
     }
+  },
+
+  {
+    "comment": "tests for tbl mydb.tbl_ds3"
+  },
+  {
+    "request": {
+      "requestId": "ds3-r-user select mydb.tbl_ds3",
+      "user":      { "name": "ds3-r-user" },
+      "access":    { "resource": "table:mydb.tbl_ds3", "action": "select", "permissions": [ "select" ] },
+      "context":   { "serviceName": "dev_hive" }
+    },
+    "result": {
+      "requestId": "ds3-r-user select mydb.tbl_ds3",
+      "decision":  "DENY",
+      "permissions": {
+        "select": { "permission": "select", "access": { "decision": "DENY", "policy": { "id": -1 } } }
+      }
+    }
+  },
+  {
+    "request": {
+      "requestId": "ds3-r-user select mydb.tbl_ds3 col1,col2,col3",
+      "user":      { "name": "ds3-r-user" },
+      "access":    { "resource": "table:mydb.tbl_ds3", "subResources": [ "column:col1", "column:col2", "column:col3" ], "action": "select", "permissions": [ "select" ] },
+      "context":   { "serviceName": "dev_hive" }
+    },
+    "result": {
+      "requestId": "ds3-r-user select mydb.tbl_ds3 col1,col2,col3",
+      "decision":  "ALLOW",
+      "permissions": {
+        "select": {
+          "permission": "select", "access": { "decision": "ALLOW", "policy": { "id": 43, "version": 1 } }, "rowFilter": { "filterExpr": "year = current_year()", "policy": { "id": 43, "version": 1 } },
+          "subResources": {
+            "column:col1": { "permission": "select", "access": { "decision": "ALLOW", "policy": { "id": 43, "version": 1 } }, "dataMask": { "maskType": "MASK_HASH", "policy": { "id": 43, "version": 1 } } },
+            "column:col2": { "permission": "select", "access": { "decision": "ALLOW", "policy": { "id": 43, "version": 1 } } },
+            "column:col3": { "permission": "select", "access": { "decision": "ALLOW", "policy": { "id": 43, "version": 1 } } }
+          }
+        }
+      }
+    }
   }
 ]

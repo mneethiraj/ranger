@@ -24,12 +24,24 @@
           ]
         }
       ]
+    },
+    {
+      "id": 3, "name": "ds3",
+      "policies": [
+        {
+          "id": 43, "name": "DATASET: ds3", "version": 1,
+          "resources": { "dataset-id": { "values": [ "3" ] } },
+          "policyItems": [
+            { "accesses": [ { "type": "_READ" } ], "users": [ "ds3-r-user" ] }
+          ]
+        }
+      ]
     }
   ],
   "dataShares": [
     { "id": 1, "name": "hive-ds1",     "defaultAccessTypes": [ "select" ] },
     { "id": 2, "name": "hive-ds2",     "defaultAccessTypes": [ "select" ] },
-    { "id": 3, "name": "hive-some-ds", "defaultAccessTypes": [ "select" ] }
+    { "id": 3, "name": "hive-ds3",     "defaultAccessTypes": [ "select" ] }
   ],
   "dshids": [
     { "dataShareId": 1, "datasetId": 1, "status": "ACTIVE" },
@@ -39,15 +51,19 @@
   "resources": [
     {
       "id": 1, "name": "mydb.tbl_ds1", "dataShareId": 1,
-      "resource": { "database": { "values": [ "mydb" ] }, "table": { "values": [ "tbl_ds1" ], "isRecursive": true } }
+      "resource": { "database": { "values": [ "mydb" ] }, "table": { "values": [ "tbl_ds1" ] } }
     },
     {
       "id": 2, "name": "mydb.tbl_ds2", "dataShareId": 2,
-      "resource": { "database": { "values": [ "mydb" ] }, "table": { "values": [ "tbl_ds2" ], "isRecursive": true } }
+      "resource": { "database": { "values": [ "mydb" ] }, "table": { "values": [ "tbl_ds2" ] } }
     },
     {
-      "id": 3, "name": "mydb.tbl_some-ds", "dataShareId": 3,
-      "resource": { "database": { "values": [ "mydb" ] }, "table": { "values": [ "tbl_some-ds" ], "isRecursive": true } }
+      "id": 3, "name": "mydb.tbl_ds3", "dataShareId": 3,
+      "resource": { "database": { "values": [ "mydb" ] }, "table": { "values": [ "tbl_ds3" ] } }, "subResource": { "values": [ "col1", "col2", "col3" ] }, "subResourceType": "column",
+      "rowFilter": { "filterExpr": "year = current_year()" },
+      "subResourceMasks": [
+        { "values": [ "col1" ], "maskInfo": { "dataMaskType": "MASK_HASH" } }
+      ]
     }
   ],
   "gdsServiceDef": {
